@@ -18,12 +18,12 @@ import java.util.List;
 import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
+@Entity
+@Table(name = "USUARIO")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
-@Entity
-@Table(name = "USUARIO")
 public class Usuario {
 
     @Id
@@ -52,7 +52,6 @@ public class Usuario {
     private LocalDateTime dataCadastro;
 
     @Column(name = "ULTIMO_ACESSO")
-    @NotNull
     private LocalDateTime ultimoAcesso;
 
     @JoinColumn(name = "FK_PERMISSAO")

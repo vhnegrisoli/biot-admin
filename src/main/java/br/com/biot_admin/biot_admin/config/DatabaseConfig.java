@@ -26,10 +26,4 @@ public class DatabaseConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource-apps")
-    public DataSource dataSourceApps() {
-        return DataSourceBuilder.create().build();
-    }
 }
