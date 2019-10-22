@@ -30,4 +30,7 @@ public class Aplicativo {
     @NotNull
     private String nome;
 
+    public Aplicativo(Integer id) {
+        this.id = id;
+    }
 }
