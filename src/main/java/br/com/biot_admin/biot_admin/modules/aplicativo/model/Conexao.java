@@ -1,9 +1,17 @@
 package br.com.biot_admin.biot_admin.modules.aplicativo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @Entity
 @Table(name = "CONEXAO")
 public class Conexao {

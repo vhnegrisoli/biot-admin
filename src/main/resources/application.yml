@@ -6,6 +6,15 @@ spring:
     initialization-mode: always
     initialize: true
     continue-on-error: true
+
+  datasource-apps:
+    url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/biot_admin
+    username: postgres
+    password: 1y5h8j
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+
   main:
     allow-bean-definition-overriding: true
 

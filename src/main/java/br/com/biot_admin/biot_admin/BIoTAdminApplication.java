@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan
 public class BIoTAdminApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BIoTAdminApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(BIoTAdminApplication.class, args);
+    }
 }
