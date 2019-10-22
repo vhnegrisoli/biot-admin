@@ -1,5 +1,6 @@
 package br.com.biot_admin.biot_admin.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -26,4 +27,10 @@ public class DatabaseConfig {
         return DataSourceBuilder.create().build();
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource-app")
+    @Qualifier(value = "app")
+    public DataSource dataSourceApp() {
+        return DataSourceBuilder.create().build();
+    }
 }

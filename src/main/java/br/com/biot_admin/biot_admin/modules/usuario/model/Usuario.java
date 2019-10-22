@@ -59,7 +59,7 @@ public class Usuario {
     @NotNull
     private Permissao permissao;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USUARIO_APLICATIVO",
         joinColumns = @JoinColumn(name = "FK_USUARIO"),
         inverseJoinColumns = @JoinColumn(name = "FK_APLICATIVO"))

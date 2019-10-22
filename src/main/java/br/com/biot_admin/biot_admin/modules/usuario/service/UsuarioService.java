@@ -103,4 +103,12 @@ public class UsuarioService {
         return List.of(usuarioRepository.findById(usuarioAutenticado.getId())
             .orElseThrow(USUARIO_NAO_ENCONTRADO::getException));
     }
+
+    public List<Integer> getAplicativosIdsDoUsuario(UsuarioAutenticado usuarioAutenticado) {
+        return usuarioAutenticado
+            .getAplicativos()
+            .stream()
+            .map(Aplicativo::getId)
+            .collect(Collectors.toList());
+    }
 }
