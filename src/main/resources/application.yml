@@ -8,15 +8,13 @@ spring:
     continue-on-error: true
     platform: postgresql
 
-    datasource-app:
-      jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/vendas_analytics
-      username: postgres
-      password: 1y5h8j
-      initialization-mode: always
-      initialize: true
-      continue-on-error: true
-      platform: postgresql
-      driver-class-name: org.postgresql.Driver
+  datasource-app:
+    driver-class-name: org.postgresql.Driver
+    jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/nutricao_esportiva
+    username: postgres
+    password: 1y5h8j
+    hikari:
+      maximumPoolSize: 2
 
   main:
     allow-bean-definition-overriding: true

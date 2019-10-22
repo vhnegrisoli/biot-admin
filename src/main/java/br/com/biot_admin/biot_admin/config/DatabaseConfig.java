@@ -6,31 +6,31 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource({ "classpath:application.yml" })
 public class DatabaseConfig {
-
-    @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
 
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
+    @Qualifier(value = "primary")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
+    @Bean(name = "app")
     @ConfigurationProperties(prefix = "spring.datasource-app")
     @Qualifier(value = "app")
-    public DataSource dataSourceApp() {
+    public DataSource appDataSource() {
         return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    @Qualifier(value = "app")
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(appDataSource());
     }
 }
