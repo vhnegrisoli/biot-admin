@@ -6,6 +6,7 @@ public enum EPermissao {
 
     BIOT_ADMIN("BIoT Admin"),
     APP_OWNER("Application Owner"),
+    USER("User"),
     APPLICATION("APPLICATION");
 
     @Getter
