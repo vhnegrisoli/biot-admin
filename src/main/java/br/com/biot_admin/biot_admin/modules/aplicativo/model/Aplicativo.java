@@ -30,6 +30,22 @@ public class Aplicativo {
     @NotNull
     private String nome;
 
+    @Column(name = "BACK_END_URL")
+    @NotNull
+    private String backEndUrl;
+
+    @Column(name = "APP_CLIENT")
+    @NotNull
+    private String appClient;
+
+    @Column(name = "APP_SECRET")
+    @NotNull
+    private String appSecret;
+
+    @Column(name = "APP_HEADER")
+    @NotNull
+    private String appHeader;
+
     public Aplicativo(Integer id) {
         this.id = id;
     }

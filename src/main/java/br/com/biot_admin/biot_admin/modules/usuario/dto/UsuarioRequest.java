@@ -4,22 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
 
-import java.util.List;
-
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class UsuarioRequest {
 
     private Integer id;
     private String nome;
     private String email;
-    @CPF
-    private String cpf;
-    private String senha;
-    private List<Integer> aplicativosIds;
+    private Integer permissaoId;
+    private Integer aplicativoId;
 
 }

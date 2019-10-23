@@ -13,7 +13,6 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -38,10 +37,6 @@ public class Usuario {
     @NotNull
     private String email;
 
-    @Column(name = "SENHA")
-    @NotNull
-    private String senha;
-
     @Column(name = "CPF")
     @NotNull
     @CPF
@@ -59,20 +54,18 @@ public class Usuario {
     @NotNull
     private Permissao permissao;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USUARIO_APLICATIVO",
-        joinColumns = @JoinColumn(name = "FK_USUARIO"),
-        inverseJoinColumns = @JoinColumn(name = "FK_APLICATIVO"))
-    private List<Aplicativo> aplicativos;
+    @ManyToOne
+    @JoinColumn(name = "FK_APLICATIVO")
+    private Aplicativo aplicativo;
 
     @JsonIgnore
     public boolean isNovoCadastro() {
         return isEmpty(id);
     }
 
-    public static Usuario of(UsuarioRequest usuarioRequest) {
+    public static Usuario of(UsuarioRequest request) {
         var usuario = new Usuario();
-        BeanUtils.copyProperties(usuarioRequest, usuario);
+        BeanUtils.copyProperties(request, usuario);
         usuario.setDataCadastro(LocalDateTime.now());
         usuario.setUltimoAcesso(LocalDateTime.now());
         usuario.setPermissao(new Permissao(2, APP_OWNER, "Application Owner"));
