@@ -5,7 +5,8 @@ import lombok.Getter;
 public enum EPermissao {
 
     BIOT_ADMIN("BIoT Admin"),
-    APP_OWNER("Application Owner");
+    APP_OWNER("Application Owner"),
+    APPLICATION("APPLICATION");
 
     @Getter
     private String descricao;

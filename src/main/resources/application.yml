@@ -38,6 +38,17 @@ app-config:
     biot-admin:
       client: biot_admin-client
       secret: biot_admin-secret
-    guia_de_projeto_api:
+    guia-de-projeto-api:
       client: guia-de-projeto-api-client
       secret: guia-de-projeto-api-secret
+
+  services:
+    guia-de-projeto-api:
+      url: http://localhost:8090
+    biot-admin:
+      url: http://localhost:8080
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
