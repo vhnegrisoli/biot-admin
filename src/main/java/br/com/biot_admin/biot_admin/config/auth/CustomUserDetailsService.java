@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.config;
+package br.com.biot_admin.biot_admin.config.auth;
 
 import br.com.biot_admin.biot_admin.modules.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

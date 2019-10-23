@@ -1,5 +1,6 @@
 package br.com.biot_admin.biot_admin.config;
 
+import br.com.biot_admin.biot_admin.config.auth.ClientCredentialsTokenService;
 import feign.RequestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

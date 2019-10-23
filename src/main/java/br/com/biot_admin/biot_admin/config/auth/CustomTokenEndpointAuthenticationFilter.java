@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.config;
+package br.com.biot_admin.biot_admin.config.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;

@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.config;
+package br.com.biot_admin.biot_admin.config.auth;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;

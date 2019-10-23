@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.config;
+package br.com.biot_admin.biot_admin.config.auth;
 
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
