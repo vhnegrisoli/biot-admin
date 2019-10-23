@@ -1,6 +1,7 @@
 package br.com.biot_admin.biot_admin.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,9 +28,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
+    private static final String ROLE_APPLICATION = "ROLE_APPLICATION";
     private static final String APPLICATION_CLIENT = "biot_admin-client";
     private static final String APPLICATION_SECRET = "biot_admin-secret";
     private static final Integer TOKEN_VALIDITY_SECONDS = 0;
+    @Value("${app-config.oauth-clients.guia_de_projeto_api.client}")
+    private String guiaDeProjetoClient;
+    @Value("${app-config.oauth-clients.guia_de_projeto_api.secret}")
+    private String guiaDeProjetoSecret;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -42,12 +48,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
+        clients
+            .inMemory()
             .withClient(APPLICATION_CLIENT)
             .secret(bcryptPasswordEncoder.encode(APPLICATION_SECRET))
             .authorizedGrantTypes("password")
             .authorities(BIOT_ADMIN.name(), APP_OWNER.name())
             .scopes("read", "write", "trust")
+            .and()
+            .withClient(guiaDeProjetoClient)
+            .secret(guiaDeProjetoSecret)
+            .authorizedGrantTypes("password")
+            .scopes("guia-de-projeto-api")
+            .authorities(ROLE_APPLICATION)
             .resourceIds("oauth2-resource")
             .accessTokenValiditySeconds(TOKEN_VALIDITY_SECONDS);
     }

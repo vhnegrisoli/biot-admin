@@ -32,3 +32,12 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
         jdbc:
           lob.non_contextual_creation: true
+
+app-config:
+  oauth-clients:
+    biot-admin:
+      client: biot_admin-client
+      secret: biot_admin-secret
+    guia_de_projeto_api:
+      client: guia-de-projeto-api-client
+      secret: guia-de-projeto-api-secret

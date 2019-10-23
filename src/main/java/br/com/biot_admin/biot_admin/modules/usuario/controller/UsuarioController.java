@@ -1,5 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.usuario.controller;
 
+import br.com.biot_admin.biot_admin.modules.usuario.client.UsuarioClient;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioRequest;
 import br.com.biot_admin.biot_admin.modules.usuario.model.Usuario;
@@ -18,6 +19,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private UsuarioClient usuarioClient;
 
     @GetMapping
     public List<Usuario> getUsuarios() {
@@ -27,6 +30,11 @@ public class UsuarioController {
     @GetMapping("/check-session")
     public ResponseEntity checkSession() {
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @GetMapping("/check-session-client")
+    public void checkSessionClient() {
+        usuarioClient.checkSession();
     }
 
     @PostMapping("/novo")
