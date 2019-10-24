@@ -1,5 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.usuario.service;
 
+import br.com.biot_admin.biot_admin.modules.aplicativo.model.Aplicativo;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioResponse;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioRequest;
 import br.com.biot_admin.biot_admin.modules.usuario.model.Usuario;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioResponse.of;
 import static br.com.biot_admin.biot_admin.modules.usuario.model.Usuario.of;
@@ -41,7 +44,12 @@ public class UsuarioService {
         validarEmailExistente(usuario);
         usuario.setDataCadastro(LocalDateTime.now());
         usuario.setUltimoAcesso(LocalDateTime.now());
+        vincularAplicacoes(usuario, usuarioRequest.getAplicativosIds());
         usuarioRepository.save(usuario);
+    }
+
+    private void vincularAplicacoes(Usuario usuario, List<Integer> aplicativos) {
+        usuario.setAplicativos(aplicativos.stream().map(Aplicativo::new).collect(Collectors.toList()));
     }
 
     private void validarEmailExistente(Usuario usuario) {

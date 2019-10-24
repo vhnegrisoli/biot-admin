@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -54,9 +55,11 @@ public class Usuario {
     @NotNull
     private Permissao permissao;
 
-    @ManyToOne
-    @JoinColumn(name = "FK_APLICATIVO")
-    private Aplicativo aplicativo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USUARIO_APLICATIVO",
+        joinColumns = @JoinColumn(name = "FK_USUARIO"),
+        inverseJoinColumns = @JoinColumn(name = "FK_APLICATIVO"))
+    private List<Aplicativo> aplicativos;
 
     @JsonIgnore
     public boolean isNovoCadastro() {

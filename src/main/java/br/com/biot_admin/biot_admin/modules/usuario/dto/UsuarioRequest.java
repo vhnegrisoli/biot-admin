@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,6 +17,6 @@ public class UsuarioRequest {
     private String nome;
     private String email;
     private Integer permissaoId;
-    private Integer aplicativoId;
+    private List<Integer> aplicativosIds;
 
 }
