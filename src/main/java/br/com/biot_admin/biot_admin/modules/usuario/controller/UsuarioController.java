@@ -14,9 +14,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/login/{email}")
-    public UsuarioResponse login(@PathVariable String email) {
-        return usuarioService.getLogin(email);
+    @GetMapping("/login/{nomeUsuario}")
+    public UsuarioResponse login(@PathVariable String nomeUsuario) {
+        return usuarioService.getLogin(nomeUsuario);
     }
 
     @PostMapping

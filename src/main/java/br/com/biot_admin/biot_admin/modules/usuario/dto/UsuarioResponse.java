@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -18,8 +16,9 @@ public class UsuarioResponse {
 
     private Integer id;
     private String nome;
+    private String nomeUsuario;
     private String email;
-    List<Aplicativo> aplicativos;
+    Aplicativo aplicativo;
 
     public static UsuarioResponse of(Usuario usuario) {
         var response = new UsuarioResponse();

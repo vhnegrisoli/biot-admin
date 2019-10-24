@@ -4,8 +4,8 @@ import lombok.Getter;
 
 public enum EPermissao {
 
-    BIOT_ADMIN("BIoT Admin"),
-    APP_OWNER("Application Owner");
+    USER("Usuário"),
+    ADMIN("Administrador");
 
     @Getter
     private String descricao;
