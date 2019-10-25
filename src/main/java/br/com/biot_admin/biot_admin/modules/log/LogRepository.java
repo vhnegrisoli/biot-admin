@@ -1,4 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.log;
 
-public interface LogRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LogRepository extends JpaRepository<Log, Integer> {
 }

@@ -12,8 +12,8 @@ public class LogListener {
     private LogService logService;
 
     @RabbitListener(queues = "${app-config.queue.usuario-log}")
-    public void receive(@Payload String fileBody) {
-        logService.processarLogDeUsuario();
-        System.out.println("Mensagem recebida: " + fileBody);
+    public void receive(@Payload LogMqResponse response) {
+        logService.processarLogDeUsuario(response);
+        System.out.println("Mensagem recebida: " + response);
     }
 }
