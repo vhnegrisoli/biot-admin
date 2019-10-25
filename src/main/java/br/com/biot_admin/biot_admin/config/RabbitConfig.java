@@ -1,0 +1,28 @@
+//package br.com.biot_admin.biot_admin.config;
+//
+//import org.springframework.amqp.core.Binding;
+//import org.springframework.amqp.core.BindingBuilder;
+//import org.springframework.amqp.core.Queue;
+//import org.springframework.amqp.core.TopicExchange;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//@Configuration
+//public class RabbitConfig {
+//
+//    @Value("${app-config.queue.usuario-log}")
+//    private String usuarioLogMq;
+//
+//
+//
+//    @Bean
+//    Queue usuarioLogMq() {
+//        return new Queue(usuarioLogMq, false);
+//    }
+//
+//    @Bean
+//    public Binding usuarioLogBinding(TopicExchange exchange) {
+//        return BindingBuilder.bind(usuarioLogMq()).to(exchange).with(usuarioLogMq);
+//    }
+//}

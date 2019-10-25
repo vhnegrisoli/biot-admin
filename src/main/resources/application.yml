@@ -1,4 +1,10 @@
 spring:
+  rabbitmq:
+    host: sqlvhnegrisoli.ddns.net
+    port: 15672
+    username: biotadmin
+    password: biotadmin
+
   datasource:
     jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/biot_admin
     username: postgres
@@ -7,14 +13,6 @@ spring:
     initialize: true
     continue-on-error: true
     platform: postgresql
-
-  datasource-app:
-    driver-class-name: org.postgresql.Driver
-    jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/nutricao_esportiva
-    username: postgres
-    password: 1y5h8j
-    hikari:
-      maximumPoolSize: 2
 
   main:
     allow-bean-definition-overriding: true
@@ -32,3 +30,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
         jdbc:
           lob.non_contextual_creation: true
+
+app-config:
+  queue:
+    usuario-log: usuario-log.queue
