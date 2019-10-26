@@ -37,3 +37,5 @@ app-config:
     usuario-log: usuario-log.queue
   topic:
     biot-admin: biot-admin.topic
+  key:
+    usuario-log: usuario-log.queue
