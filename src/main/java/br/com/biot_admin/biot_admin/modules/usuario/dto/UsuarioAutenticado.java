@@ -13,8 +13,8 @@ import org.springframework.beans.BeanUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.BIOT_ADMIN;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.USER;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.ADMIN;
 
 @Data
 @AllArgsConstructor
@@ -33,11 +33,11 @@ public class UsuarioAutenticado {
     private List<Aplicativo> aplicativos;
 
     public boolean isAdmin() {
-        return permissao.equals(BIOT_ADMIN);
+        return permissao.equals(ADMIN);
     }
 
     public boolean isUser() {
-        return permissao.equals(APP_OWNER);
+        return permissao.equals(USER);
     }
 
     public static UsuarioAutenticado of(Usuario usuario) {

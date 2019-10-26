@@ -12,8 +12,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.BIOT_ADMIN;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.USER;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.ADMIN;
 
 @Configuration
 @EnableAuthorizationServer
@@ -46,7 +46,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .withClient(APPLICATION_CLIENT)
             .secret(bcryptPasswordEncoder.encode(APPLICATION_SECRET))
             .authorizedGrantTypes("password")
-            .authorities(BIOT_ADMIN.name(), APP_OWNER.name())
+            .authorities(ADMIN.name(), USER.name())
             .scopes("read", "write", "trust")
             .resourceIds("oauth2-resource")
             .accessTokenValiditySeconds(TOKEN_VALIDITY_SECONDS);

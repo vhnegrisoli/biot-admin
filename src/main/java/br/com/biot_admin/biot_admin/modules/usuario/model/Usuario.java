@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.USER;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Entity
@@ -75,7 +75,7 @@ public class Usuario {
         BeanUtils.copyProperties(usuarioRequest, usuario);
         usuario.setDataCadastro(LocalDateTime.now());
         usuario.setUltimoAcesso(LocalDateTime.now());
-        usuario.setPermissao(new Permissao(2, APP_OWNER, "Application Owner"));
+        usuario.setPermissao(new Permissao(2, USER, "Usuário"));
         return usuario;
     }
 }

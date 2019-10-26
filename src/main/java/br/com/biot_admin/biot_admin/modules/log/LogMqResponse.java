@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class LogMqResponse {
+public class LogMqResponse implements Serializable {
 
     private Integer usuarioId;
     private String usuarioNome;

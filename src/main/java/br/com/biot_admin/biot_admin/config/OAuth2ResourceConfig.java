@@ -7,8 +7,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.APP_OWNER;
-import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.BIOT_ADMIN;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.USER;
+import static br.com.biot_admin.biot_admin.modules.usuario.enums.EPermissao.ADMIN;
 
 @Configuration
 @EnableResourceServer
@@ -32,6 +32,6 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(permitAll).permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-            .antMatchers("/api/usuarios/**").hasAnyRole(BIOT_ADMIN.name(), APP_OWNER.name());
+            .antMatchers("/api/usuarios/**").hasAnyRole(ADMIN.name(), USER.name());
     }
 }

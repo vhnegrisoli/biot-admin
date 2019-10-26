@@ -1,7 +1,8 @@
 spring:
   rabbitmq:
-    host: sqlvhnegrisoli.ddns.net
-    port: 15672
+    host: localhost
+#    host: sqlvhnegrisoli.ddns.net
+    port: 5672
     username: biotadmin
     password: biotadmin
 
@@ -34,3 +35,5 @@ spring:
 app-config:
   queue:
     usuario-log: usuario-log.queue
+  topic:
+    biot-admin: biot-admin.topic
