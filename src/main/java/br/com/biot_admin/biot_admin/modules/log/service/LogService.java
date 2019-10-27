@@ -1,11 +1,13 @@
-package br.com.biot_admin.biot_admin.modules.log;
+package br.com.biot_admin.biot_admin.modules.log.service;
 
+import br.com.biot_admin.biot_admin.modules.log.dto.LogMqResponse;
+import br.com.biot_admin.biot_admin.modules.log.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 
-import static br.com.biot_admin.biot_admin.modules.log.Log.of;
+import static br.com.biot_admin.biot_admin.modules.log.model.Log.of;
 
 @Service
 public class LogService {

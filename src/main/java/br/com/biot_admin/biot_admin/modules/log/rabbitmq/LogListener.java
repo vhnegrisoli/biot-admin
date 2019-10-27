@@ -1,5 +1,7 @@
-package br.com.biot_admin.biot_admin.modules.log;
+package br.com.biot_admin.biot_admin.modules.log.rabbitmq;
 
+import br.com.biot_admin.biot_admin.modules.log.dto.LogMqResponse;
+import br.com.biot_admin.biot_admin.modules.log.service.LogService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

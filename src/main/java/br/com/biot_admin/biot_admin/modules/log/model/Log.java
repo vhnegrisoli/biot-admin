@@ -1,5 +1,6 @@
-package br.com.biot_admin.biot_admin.modules.log;
+package br.com.biot_admin.biot_admin.modules.log.model;
 
+import br.com.biot_admin.biot_admin.modules.log.dto.LogMqResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
