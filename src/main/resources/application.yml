@@ -9,7 +9,6 @@ spring:
     username: yfsypxcf
     password: wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f
     virtual-host: yfsypxcf
-#    url: amqp://yfsypxcf:wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f@skunk.rmq.cloudamqp.com/yfsypxcf
 
   datasource:
     jdbc-url: jdbc:postgresql://ec2-174-129-10-235.compute-1.amazonaws.com:5432/dar4ef1hkn6l4s
