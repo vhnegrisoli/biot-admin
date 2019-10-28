@@ -6,7 +6,7 @@ spring:
 #    username: biotadmin
 #    password: biotadmin
     host: skunk.rmq.cloudamqp.com
-    username: yfsypxcf:yfsypxcf
+    username: yfsypxcf
     password: wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f
 
   datasource:
