@@ -5,7 +5,11 @@ spring:
 #    host: sqlvhnegrisoli.ddns.net
 #    username: biotadmin
 #    password: biotadmin
-    url: amqp://yfsypxcf:wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f@skunk.rmq.cloudamqp.com/yfsypxcf
+    host: skunk.rmq.cloudamqp.com
+    username: yfsypxcf
+    password: wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f
+    virtual-host: yfsypxcf
+#    url: amqp://yfsypxcf:wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f@skunk.rmq.cloudamqp.com/yfsypxcf
 
   datasource:
     jdbc-url: jdbc:postgresql://ec2-174-129-10-235.compute-1.amazonaws.com:5432/dar4ef1hkn6l4s
@@ -43,3 +47,8 @@ app-config:
     biot-admin: biot-admin.topic
   key:
     usuario-log: usuario-log.queue
+
+management:
+  health:
+    rabbit:
+      enabled: false
