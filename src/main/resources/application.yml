@@ -1,15 +1,22 @@
 spring:
   rabbitmq:
-    host: localhost
+#    port: 5672
+#    host: localhost
 #    host: sqlvhnegrisoli.ddns.net
-    port: 5672
-    username: biotadmin
-    password: biotadmin
+#    username: biotadmin
+#    password: biotadmin
+    post: 1883
+    host: skunk.rmq.cloudamqp.com
+    username: yfsypxcf
+    password: wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f
 
   datasource:
-    jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/biot_admin
-    username: postgres
-    password: 1y5h8j
+    jdbc-url: jdbc:postgresql://ec2-174-129-10-235.compute-1.amazonaws.com:5432/dar4ef1hkn6l4s
+    username: zpqolsqozjgesr
+    password: 46b6c4fb65732d638a494b0ff29691f944f8e3d0c92c818e4db3017cb214170b
+#    jdbc-url: jdbc:postgresql://sqlvhnegrisoli.ddns.net:5432/biot_admin
+#    username: postgres
+#    password: 1y5h8j
     initialization-mode: always
     initialize: true
     continue-on-error: true
