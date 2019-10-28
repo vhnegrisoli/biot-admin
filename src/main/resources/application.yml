@@ -1,13 +1,12 @@
 spring:
   rabbitmq:
-#    port: 5672
+    port: 1883
 #    host: localhost
 #    host: sqlvhnegrisoli.ddns.net
 #    username: biotadmin
 #    password: biotadmin
-    post: 1883
     host: skunk.rmq.cloudamqp.com
-    username: yfsypxcf
+    username: yfsypxcf:yfsypxcf
     password: wrX6LNWtKlsRd0l1ICC5TNEWf0yCpF1f
 
   datasource:
