@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class UsuarioResponse {
+public class QtdUrlsAcessadasResponse {
 
-    private Integer id;
-    private String nome;
-    private String email;
+    private String url;
+    private Long qtdAcessos;
+
 }

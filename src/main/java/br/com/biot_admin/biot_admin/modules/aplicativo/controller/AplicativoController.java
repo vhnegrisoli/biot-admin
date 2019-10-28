@@ -1,7 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.aplicativo.controller;
 
 import br.com.biot_admin.biot_admin.modules.aplicativo.model.Aplicativo;
-import br.com.biot_admin.biot_admin.modules.aplicativo.model.Conexao;
 import br.com.biot_admin.biot_admin.modules.aplicativo.service.AplicativoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +25,5 @@ public class AplicativoController {
     @GetMapping("{id}")
     public Aplicativo buscarUm(@PathVariable Integer id) {
         return aplicativoService.buscarUm(id);
-    }
-
-    @GetMapping("{id}/configurar-conexao")
-    public Conexao configurarBancoDeDados(@PathVariable Integer id) {
-        return aplicativoService.configurarBancoDeDados(id);
     }
 }
