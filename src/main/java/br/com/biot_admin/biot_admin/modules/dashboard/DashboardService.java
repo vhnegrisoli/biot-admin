@@ -27,13 +27,15 @@ public class DashboardService {
         var aplicativo = aplicativoRepository.findById(aplicacaoId)
             .orElseThrow(APLICATIVO_NAO_ENCONTRADO::getException);
         validarPermissaoDoUsuarioSobRelatorioDoAplciativo(usuarioLogado, aplicativo);
+        var codigoAplicacao = aplicativo.getCodigo().name();
         return DashboardResponse
             .builder()
-            .qtdConsultas(logRepository.countBuscasByIdAndAplicacao(aplicativo.getCodigo().name()))
-            .qtdInsercoes(logRepository.countInsercoesByIdAndAplicacao(aplicativo.getCodigo().name()))
-            .qtdAtualizacoes(logRepository.countAlteracoesByIdAndAplicacao(aplicativo.getCodigo().name()))
-            .qtdRemocoes(logRepository.countRemocoesByIdAndAplicacao(aplicativo.getCodigo().name()))
-            .qtdUrlsAcessadas(logRepository.getQtdUrlsAcessadas(aplicativo.getCodigo().name()))
+            .qtdConsultas(logRepository.countBuscasByIdAndAplicacao(codigoAplicacao))
+            .qtdInsercoes(logRepository.countInsercoesByIdAndAplicacao(codigoAplicacao))
+            .qtdAtualizacoes(logRepository.countAlteracoesByIdAndAplicacao(codigoAplicacao))
+            .qtdRemocoes(logRepository.countRemocoesByIdAndAplicacao(codigoAplicacao))
+            .qtdUrlsAcessadas(logRepository.getQtdUrlsAcessadas(codigoAplicacao))
+            .relatorioUsuariosUltimosSeteDias(logRepository.getUsuariosUltimosSeteDias(codigoAplicacao))
             .build();
     }
 

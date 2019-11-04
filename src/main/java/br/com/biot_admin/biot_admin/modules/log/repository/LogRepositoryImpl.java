@@ -1,12 +1,15 @@
 package br.com.biot_admin.biot_admin.modules.log.repository;
 
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.QtdUrlsAcessadasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosSeteDiasResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.ALTERANDO;
@@ -76,6 +79,22 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
             .orderBy(log.usuarioId.count().desc())
             .groupBy(log.urlAcessada)
             .limit(LIMITE_DADOS_CONSULTA)
+            .fetch();
+    }
+
+    @Override
+    public List<RelatorioUsuariosSeteDiasResponse> getUsuariosUltimosSeteDias(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(
+                Projections.constructor(RelatorioUsuariosSeteDiasResponse.class,
+                    log.diaSemana,
+                    log.diaMes,
+                    log.usuarioId.countDistinct()))
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.between(LocalDateTime.now().minusDays(7), LocalDateTime.now())))
+            .groupBy(log.diaSemana, log.diaMes)
+            .orderBy(log.diaMes.desc())
             .fetch();
     }
 }
