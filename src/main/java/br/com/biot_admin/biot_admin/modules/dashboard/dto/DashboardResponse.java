@@ -18,4 +18,5 @@ public class DashboardResponse {
     private Long qtdAtualizacoes;
     private Long qtdRemocoes;
     private List<QtdUrlsAcessadasResponse> qtdUrlsAcessadas;
+    private List<RelatorioUsuariosSeteDiasResponse> relatorioUsuariosUltimosSeteDias;
 }

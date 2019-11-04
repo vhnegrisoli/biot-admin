@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.CONSULTANDO;
 import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.ALTERANDO;
 import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.REMOVENDO;
+import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.CONSULTANDO;
 import static br.com.biot_admin.biot_admin.modules.log.enums.ETipoOperacao.SALVANDO;
 import static br.com.biot_admin.biot_admin.modules.log.model.QLog.log;
 

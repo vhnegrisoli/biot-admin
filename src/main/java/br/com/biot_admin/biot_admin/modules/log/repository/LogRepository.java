@@ -9,5 +9,4 @@ import java.util.List;
 public interface LogRepository extends JpaRepository<Log, Integer>, LogRepositoryCustom {
 
     List<Log> findByDataAcessoLessThanEqual(LocalDateTime dataAcessoDoisMesesAtras);
-
 }

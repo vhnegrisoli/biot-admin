@@ -55,6 +55,30 @@ public class Log {
     @NotNull
     private LocalDateTime dataAcesso;
 
+    @Column(name = "ano")
+    private Integer ano;
+
+    @Column(name = "mes")
+    private Integer mes;
+
+    @Column(name = "mes_nome")
+    private String mesNome;
+
+    @Column(name = "dia_Semana")
+    private String diaSemana;
+
+    @Column(name = "dia_mes")
+    private Integer diaMes;
+
+    @Column(name = "hora")
+    private Integer hora;
+
+    @Column(name = "minuto")
+    private Integer minuto;
+
+    @Column(name = "hora_minuto")
+    private String horaMinuto;
+
     public static Log of(LogMqResponse response) {
         var log = new Log();
         BeanUtils.copyProperties(response, log);
