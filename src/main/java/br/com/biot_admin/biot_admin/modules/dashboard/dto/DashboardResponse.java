@@ -13,10 +13,6 @@ import java.util.List;
 @Data
 public class DashboardResponse {
 
-    private Long qtdConsultas;
-    private Long qtdInsercoes;
-    private Long qtdAtualizacoes;
-    private Long qtdRemocoes;
-    private List<QtdUrlsAcessadasResponse> qtdUrlsAcessadas;
+    private Long totalUsuariosUltimosSeteDias;
     private List<RelatorioUsuariosSeteDiasResponse> relatorioUsuariosUltimosSeteDias;
 }

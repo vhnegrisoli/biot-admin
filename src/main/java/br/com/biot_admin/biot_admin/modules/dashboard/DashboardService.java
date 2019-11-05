@@ -30,11 +30,7 @@ public class DashboardService {
         var codigoAplicacao = aplicativo.getCodigo().name();
         return DashboardResponse
             .builder()
-            .qtdConsultas(logRepository.countBuscasByIdAndAplicacao(codigoAplicacao))
-            .qtdInsercoes(logRepository.countInsercoesByIdAndAplicacao(codigoAplicacao))
-            .qtdAtualizacoes(logRepository.countAlteracoesByIdAndAplicacao(codigoAplicacao))
-            .qtdRemocoes(logRepository.countRemocoesByIdAndAplicacao(codigoAplicacao))
-            .qtdUrlsAcessadas(logRepository.getQtdUrlsAcessadas(codigoAplicacao))
+            .totalUsuariosUltimosSeteDias(logRepository.getTotalUsuariosUltimosSeteDias(codigoAplicacao))
             .relatorioUsuariosUltimosSeteDias(logRepository.getUsuariosUltimosSeteDias(codigoAplicacao))
             .build();
     }

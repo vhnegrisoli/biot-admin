@@ -5,23 +5,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
-import java.util.Locale;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class RelatorioUsuariosSeteDiasResponse {
 
+    private static final String ZERO = "0";
+    private static final Integer DEZ = 10;
+
     private String diaSemana;
-    private Integer diaMes;
     private Long qtdUsuarios;
 
-    public RelatorioUsuariosSeteDiasResponse(DayOfWeek dataAcesso, Long qtdUsuarios) {
+    public RelatorioUsuariosSeteDiasResponse(Integer diaMes, Integer mes, Long qtdUsuarios) {
         this.qtdUsuarios = qtdUsuarios;
-        this.diaSemana = dataAcesso.getDisplayName(TextStyle.FULL, new Locale("pt"));
-        this.diaMes = dataAcesso.getValue();
+        this.diaSemana = (diaMes < DEZ ? ZERO + diaMes : diaMes) + "/" + (mes < DEZ ? ZERO + mes : mes);
     }
 }
