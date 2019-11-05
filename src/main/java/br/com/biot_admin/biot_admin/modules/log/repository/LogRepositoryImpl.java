@@ -1,5 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.log.repository;
 
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosHoraDiaHojeResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosSeteDiasResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -44,6 +46,33 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
             .from(log)
             .where(log.aplicacao.eq(aplicacao)
                 .and(log.dataAcesso.between(LocalDateTime.now().minusDays(UMA_SEMANA), LocalDateTime.now())))
+            .fetchOne();
+    }
+
+    @Override
+    public List<RelatorioUsuariosHoraDiaHojeResponse> getUsuariosPorHoraDeHoje(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(
+                Projections.constructor(RelatorioUsuariosHoraDiaHojeResponse.class,
+                    log.hora,
+                    log.usuarioId.countDistinct()))
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().getDayOfMonth()))
+                .and(log.dataAcesso.month().eq(LocalDate.now().getMonthValue())))
+            .groupBy(log.hora)
+            .orderBy(log.hora.asc())
+            .fetch();
+    }
+
+    @Override
+    public Long getTotalUsuariosPorHoraDeHoje(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(log.usuarioId.countDistinct())
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().getDayOfMonth()))
+                .and(log.dataAcesso.month().eq(LocalDate.now().getMonthValue())))
             .fetchOne();
     }
 }

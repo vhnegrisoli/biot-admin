@@ -15,4 +15,6 @@ public class DashboardResponse {
 
     private Long totalUsuariosUltimosSeteDias;
     private List<RelatorioUsuariosSeteDiasResponse> relatorioUsuariosUltimosSeteDias;
+    private Long totalRelatorioUsuariosHoraDiaHoje;
+    private List<RelatorioUsuariosHoraDiaHojeResponse> relatorioUsuariosHoraDiaHoje;
 }

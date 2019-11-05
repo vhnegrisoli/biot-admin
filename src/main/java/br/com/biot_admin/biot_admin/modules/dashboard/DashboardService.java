@@ -32,6 +32,8 @@ public class DashboardService {
             .builder()
             .totalUsuariosUltimosSeteDias(logRepository.getTotalUsuariosUltimosSeteDias(codigoAplicacao))
             .relatorioUsuariosUltimosSeteDias(logRepository.getUsuariosUltimosSeteDias(codigoAplicacao))
+            .totalRelatorioUsuariosHoraDiaHoje(logRepository.getTotalUsuariosPorHoraDeHoje(codigoAplicacao))
+            .relatorioUsuariosHoraDiaHoje(logRepository.getUsuariosPorHoraDeHoje(codigoAplicacao))
             .build();
     }
 
