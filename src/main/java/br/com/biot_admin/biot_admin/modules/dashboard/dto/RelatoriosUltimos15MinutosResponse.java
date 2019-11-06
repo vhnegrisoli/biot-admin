@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class DashboardResponse {
+public class RelatoriosUltimos15MinutosResponse {
 
-    private Relatorios7DiasResponse relatorioUltimos7Dias;
-    private RelatoriosHorasDiaResponse relatorioHorasDia;
-    private RelatoriosUltimos15MinutosResponse relatorioUltimos15Minutos;
+    private Long totalUsuariosAtivosUltimos15Minutos;
+    private List<RelatorioUsuariosUltimos15MinutosResponse> relatorioUsuariosAtivosUltimos15Minutos;
 }

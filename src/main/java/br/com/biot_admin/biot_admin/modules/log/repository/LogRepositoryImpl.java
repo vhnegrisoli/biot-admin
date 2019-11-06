@@ -1,7 +1,8 @@
 package br.com.biot_admin.biot_admin.modules.log.repository;
 
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosHoraDiaHojeResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosSeteDiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuarios7DiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosUltimos15MinutosResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,16 @@ import static br.com.biot_admin.biot_admin.modules.log.model.QLog.log;
 public class LogRepositoryImpl implements LogRepositoryCustom {
 
     private static final Integer UMA_SEMANA = 7;
+    private static final Integer QUINZE_MINUTOS = 15;
 
     @Autowired
     private EntityManager entityManager;
 
     @Override
-    public List<RelatorioUsuariosSeteDiasResponse> getUsuariosUltimosSeteDias(String aplicacao) {
+    public List<RelatorioUsuarios7DiasResponse> getUsuariosUltimosSeteDias(String aplicacao) {
         return new JPAQuery<Void>(entityManager)
             .select(
-                Projections.constructor(RelatorioUsuariosSeteDiasResponse.class,
+                Projections.constructor(RelatorioUsuarios7DiasResponse.class,
                     log.diaMes,
                     log.mes,
                     log.usuarioId.countDistinct()))
@@ -73,6 +75,33 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
             .where(log.aplicacao.eq(aplicacao)
                 .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().getDayOfMonth()))
                 .and(log.dataAcesso.month().eq(LocalDate.now().getMonthValue())))
+            .fetchOne();
+    }
+
+    @Override
+    public List<RelatorioUsuariosUltimos15MinutosResponse> getUsuariosAtivosNosUltimos15Minutos(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(
+                Projections.constructor(RelatorioUsuariosUltimos15MinutosResponse.class,
+                    log.hora,
+                    log.minuto,
+                    log.usuarioId.countDistinct()))
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.between(LocalDateTime.now().minusMinutes(QUINZE_MINUTOS), LocalDateTime.now())))
+            .groupBy(log.hora, log.minuto)
+            .orderBy(log.hora.asc())
+            .fetch();
+    }
+
+    @Override
+    public Long getTotalUsuariosAtivosNosUltimos15Minutos(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(
+                log.usuarioId.countDistinct())
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.between(LocalDateTime.now().minusMinutes(QUINZE_MINUTOS), LocalDateTime.now())))
             .fetchOne();
     }
 }

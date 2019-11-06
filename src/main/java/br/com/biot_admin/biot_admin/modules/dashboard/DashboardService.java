@@ -4,6 +4,9 @@ import br.com.biot_admin.biot_admin.exceptions.ValidacaoException;
 import br.com.biot_admin.biot_admin.modules.aplicativo.model.Aplicativo;
 import br.com.biot_admin.biot_admin.modules.aplicativo.repository.AplicativoRepository;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.DashboardResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.Relatorios7DiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatoriosHorasDiaResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatoriosUltimos15MinutosResponse;
 import br.com.biot_admin.biot_admin.modules.log.repository.LogRepository;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado;
 import br.com.biot_admin.biot_admin.modules.usuario.service.UsuarioService;
@@ -30,10 +33,36 @@ public class DashboardService {
         var codigoAplicacao = aplicativo.getCodigo().name();
         return DashboardResponse
             .builder()
+            .relatorioUltimos7Dias(prepararResponseRelatoriosSeteDias(codigoAplicacao))
+            .relatorioHorasDia(prepararResponseRelatoriosHorasDoDia(codigoAplicacao))
+            .relatorioUltimos15Minutos(prepararResponseRelatoriosUltimos15Minutos(codigoAplicacao))
+            .build();
+    }
+
+    private Relatorios7DiasResponse prepararResponseRelatoriosSeteDias(String codigoAplicacao) {
+        return Relatorios7DiasResponse
+            .builder()
             .totalUsuariosUltimosSeteDias(logRepository.getTotalUsuariosUltimosSeteDias(codigoAplicacao))
             .relatorioUsuariosUltimosSeteDias(logRepository.getUsuariosUltimosSeteDias(codigoAplicacao))
+            .build();
+    }
+
+    private RelatoriosHorasDiaResponse prepararResponseRelatoriosHorasDoDia(String codigoAplicacao) {
+        return RelatoriosHorasDiaResponse
+            .builder()
             .totalRelatorioUsuariosHoraDiaHoje(logRepository.getTotalUsuariosPorHoraDeHoje(codigoAplicacao))
             .relatorioUsuariosHoraDiaHoje(logRepository.getUsuariosPorHoraDeHoje(codigoAplicacao))
+            .build();
+    }
+
+    private RelatoriosUltimos15MinutosResponse prepararResponseRelatoriosUltimos15Minutos(String codigoAplicacao) {
+        return RelatoriosUltimos15MinutosResponse
+            .builder()
+            .totalUsuariosAtivosUltimos15Minutos(logRepository
+                .getTotalUsuariosAtivosNosUltimos15Minutos(codigoAplicacao))
+            .relatorioUsuariosAtivosUltimos15Minutos(logRepository
+                .getUsuariosAtivosNosUltimos15Minutos(codigoAplicacao))
+
             .build();
     }
 
