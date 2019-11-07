@@ -1,8 +1,9 @@
 package br.com.biot_admin.biot_admin.modules.log.repository;
 
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosHoraDiaHojeResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuarios7DiasResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosUltimos15MinutosResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuariosHoraDiaOntemResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuariosHoraDiaHojeResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.dia.RelatorioUsuarios7DiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatorioUsuariosUltimos15MinutosResponse;
 
 import java.util.List;
 
@@ -15,6 +16,10 @@ public interface LogRepositoryCustom {
     List<RelatorioUsuariosHoraDiaHojeResponse> getUsuariosPorHoraDeHoje(String aplicacao);
 
     Long getTotalUsuariosPorHoraDeHoje(String aplicacao);
+
+    List<RelatorioUsuariosHoraDiaOntemResponse> getUsuariosPorHoraDeOntem(String aplicacao);
+
+    Long getTotalUsuariosPorHoraDeOntem(String aplicacao);
 
     List<RelatorioUsuariosUltimos15MinutosResponse> getUsuariosAtivosNosUltimos15Minutos(String aplicacao);
 

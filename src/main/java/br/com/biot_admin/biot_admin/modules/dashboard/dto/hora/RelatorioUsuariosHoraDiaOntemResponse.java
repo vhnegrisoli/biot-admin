@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.modules.dashboard.dto;
+package br.com.biot_admin.biot_admin.modules.dashboard.dto.hora;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class RelatorioUsuariosHoraDiaHojeResponse {
+public class RelatorioUsuariosHoraDiaOntemResponse {
 
     private static final String ZERO = "0";
     private static final String MINUTO = ":00";
@@ -18,7 +18,7 @@ public class RelatorioUsuariosHoraDiaHojeResponse {
     private String hora;
     private Long qtdUsuarios;
 
-    public RelatorioUsuariosHoraDiaHojeResponse(Integer hora, Long qtdUsuarios) {
+    public RelatorioUsuariosHoraDiaOntemResponse(Integer hora, Long qtdUsuarios) {
         this.hora = (hora < DEZ ? ZERO + hora : hora) + MINUTO;
         this.qtdUsuarios = qtdUsuarios;
     }

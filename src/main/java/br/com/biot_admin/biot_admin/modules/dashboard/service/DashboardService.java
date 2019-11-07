@@ -1,22 +1,27 @@
-package br.com.biot_admin.biot_admin.modules.dashboard;
+package br.com.biot_admin.biot_admin.modules.dashboard.service;
 
 import br.com.biot_admin.biot_admin.exceptions.ValidacaoException;
 import br.com.biot_admin.biot_admin.modules.aplicativo.model.Aplicativo;
 import br.com.biot_admin.biot_admin.modules.aplicativo.repository.AplicativoRepository;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.DashboardResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.Relatorios7DiasResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatoriosHorasDiaResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatoriosUltimos15MinutosResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.*;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.dia.Relatorios7DiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatoriosHorasDiaOntemResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatoriosHorasDiaHojeResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatoriosUltimos15MinutosResponse;
 import br.com.biot_admin.biot_admin.modules.log.repository.LogRepository;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado;
 import br.com.biot_admin.biot_admin.modules.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.TimeZone;
+
 import static br.com.biot_admin.biot_admin.modules.aplicativo.exception.AplicativoException.APLICATIVO_NAO_ENCONTRADO;
 
 @Service
 public class DashboardService {
+
+    private static final String TIMEZONE_BUENOS_AIRES = "America/Argentina/Buenos_Aires";
 
     @Autowired
     private UsuarioService usuarioService;
@@ -26,6 +31,7 @@ public class DashboardService {
     private AplicativoRepository aplicativoRepository;
 
     public DashboardResponse getRelatorios(Integer aplicacaoId) {
+        TimeZone.setDefault(TimeZone.getTimeZone(TIMEZONE_BUENOS_AIRES));
         var usuarioLogado = usuarioService.getUsuarioAutenticado();
         var aplicativo = aplicativoRepository.findById(aplicacaoId)
             .orElseThrow(APLICATIVO_NAO_ENCONTRADO::getException);
@@ -35,6 +41,7 @@ public class DashboardService {
             .builder()
             .relatorioUltimos7Dias(prepararResponseRelatoriosSeteDias(codigoAplicacao))
             .relatorioHorasDia(prepararResponseRelatoriosHorasDoDia(codigoAplicacao))
+            .relatoriosHorasDiaOntem(prepararResponseRelatoriosHorasDoDiaDeOntem(codigoAplicacao))
             .relatorioUltimos15Minutos(prepararResponseRelatoriosUltimos15Minutos(codigoAplicacao))
             .build();
     }
@@ -47,11 +54,19 @@ public class DashboardService {
             .build();
     }
 
-    private RelatoriosHorasDiaResponse prepararResponseRelatoriosHorasDoDia(String codigoAplicacao) {
-        return RelatoriosHorasDiaResponse
+    private RelatoriosHorasDiaHojeResponse prepararResponseRelatoriosHorasDoDia(String codigoAplicacao) {
+        return RelatoriosHorasDiaHojeResponse
             .builder()
             .totalRelatorioUsuariosHoraDiaHoje(logRepository.getTotalUsuariosPorHoraDeHoje(codigoAplicacao))
             .relatorioUsuariosHoraDiaHoje(logRepository.getUsuariosPorHoraDeHoje(codigoAplicacao))
+            .build();
+    }
+
+    private RelatoriosHorasDiaOntemResponse prepararResponseRelatoriosHorasDoDiaDeOntem(String codigoAplicacao) {
+        return RelatoriosHorasDiaOntemResponse
+            .builder()
+            .totalRelatorioUsuariosHoraDiaOntem(logRepository.getTotalUsuariosPorHoraDeOntem(codigoAplicacao))
+            .relatorioUsuariosHoraDiaOntem(logRepository.getUsuariosPorHoraDeOntem(codigoAplicacao))
             .build();
     }
 

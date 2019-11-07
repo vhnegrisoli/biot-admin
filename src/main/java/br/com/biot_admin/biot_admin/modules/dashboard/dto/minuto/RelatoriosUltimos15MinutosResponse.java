@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.modules.dashboard.dto;
+package br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

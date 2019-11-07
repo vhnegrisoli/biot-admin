@@ -1,4 +1,4 @@
-package br.com.biot_admin.biot_admin.modules.dashboard.dto;
+package br.com.biot_admin.biot_admin.modules.dashboard.dto.hora;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
-public class RelatoriosHorasDiaResponse {
+public class RelatoriosHorasDiaHojeResponse {
 
     private Long totalRelatorioUsuariosHoraDiaHoje;
     private List<RelatorioUsuariosHoraDiaHojeResponse> relatorioUsuariosHoraDiaHoje;

@@ -1,6 +1,6 @@
 package br.com.biot_admin.biot_admin.modules.dashboard.controller;
 
-import br.com.biot_admin.biot_admin.modules.dashboard.DashboardService;
+import br.com.biot_admin.biot_admin.modules.dashboard.service.DashboardService;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.DashboardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,8 +1,9 @@
 package br.com.biot_admin.biot_admin.modules.log.repository;
 
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosHoraDiaHojeResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuarios7DiasResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.RelatorioUsuariosUltimos15MinutosResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuariosHoraDiaOntemResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuariosHoraDiaHojeResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.dia.RelatorioUsuarios7DiasResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatorioUsuariosUltimos15MinutosResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
 
     private static final Integer UMA_SEMANA = 7;
     private static final Integer QUINZE_MINUTOS = 15;
+    private static final Integer ONTEM = 1;
 
     @Autowired
     private EntityManager entityManager;
@@ -75,6 +77,33 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
             .where(log.aplicacao.eq(aplicacao)
                 .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().getDayOfMonth()))
                 .and(log.dataAcesso.month().eq(LocalDate.now().getMonthValue())))
+            .fetchOne();
+    }
+
+    @Override
+    public List<RelatorioUsuariosHoraDiaOntemResponse> getUsuariosPorHoraDeOntem(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(
+                Projections.constructor(RelatorioUsuariosHoraDiaOntemResponse.class,
+                    log.hora,
+                    log.usuarioId.countDistinct()))
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().minusDays(ONTEM).getDayOfMonth()))
+                .and(log.dataAcesso.month().eq(LocalDate.now().minusDays(ONTEM).getMonthValue())))
+            .groupBy(log.hora)
+            .orderBy(log.hora.asc())
+            .fetch();
+    }
+
+    @Override
+    public Long getTotalUsuariosPorHoraDeOntem(String aplicacao) {
+        return new JPAQuery<Void>(entityManager)
+            .select(log.usuarioId.countDistinct())
+            .from(log)
+            .where(log.aplicacao.eq(aplicacao)
+                .and(log.dataAcesso.dayOfMonth().eq(LocalDate.now().minusDays(ONTEM).getDayOfMonth()))
+                .and(log.dataAcesso.month().eq(LocalDate.now().minusDays(ONTEM).getMonthValue())))
             .fetchOne();
     }
 
