@@ -3,10 +3,11 @@ package br.com.biot_admin.biot_admin.modules.dashboard.service;
 import br.com.biot_admin.biot_admin.exceptions.ValidacaoException;
 import br.com.biot_admin.biot_admin.modules.aplicativo.model.Aplicativo;
 import br.com.biot_admin.biot_admin.modules.aplicativo.repository.AplicativoRepository;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.*;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.DashboardResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.dia.Relatorios7DiasResponse;
-import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatoriosHorasDiaOntemResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatoriosHorasDiaHojeResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatoriosHorasDiaOntemResponse;
+import br.com.biot_admin.biot_admin.modules.dashboard.dto.mes.RelatorioMesResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatoriosUltimos15MinutosResponse;
 import br.com.biot_admin.biot_admin.modules.log.repository.LogRepository;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado;
@@ -14,6 +15,9 @@ import br.com.biot_admin.biot_admin.modules.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static br.com.biot_admin.biot_admin.modules.aplicativo.exception.AplicativoException.APLICATIVO_NAO_ENCONTRADO;
@@ -43,6 +47,7 @@ public class DashboardService {
             .relatorioHorasDia(prepararResponseRelatoriosHorasDoDia(codigoAplicacao))
             .relatoriosHorasDiaOntem(prepararResponseRelatoriosHorasDoDiaDeOntem(codigoAplicacao))
             .relatorioUltimos15Minutos(prepararResponseRelatoriosUltimos15Minutos(codigoAplicacao))
+            .relatoriosMensais(prepararResponseRelatoriosMes(codigoAplicacao))
             .build();
     }
 
@@ -81,10 +86,25 @@ public class DashboardService {
             .build();
     }
 
+    private RelatorioMesResponse prepararResponseRelatoriosMes(String codigoAplicacao) {
+        return RelatorioMesResponse
+            .builder()
+            .mesAtual(tratarNomeMes())
+            .relatorioSemestreAnterior(logRepository.getUsuariosSemestreAnterior(codigoAplicacao))
+            .relatorioSemestreAtual(logRepository.getUsuariosSemestreAtual(codigoAplicacao))
+            .totalUsuariosNoMes(logRepository.getTotalUsuariosNoMesAtual(codigoAplicacao))
+            .build();
+    }
+
     private void validarPermissaoDoUsuarioSobRelatorioDoAplciativo(UsuarioAutenticado usuarioAutenticado,
                                                                    Aplicativo aplicativo) {
         if (usuarioAutenticado.isUser() && !usuarioAutenticado.getAplicativos().contains(aplicativo)) {
             throw new ValidacaoException("Você não tem permissões para visualizar os dados.");
         }
+    }
+
+    private String tratarNomeMes() {
+        var mes = LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, new Locale("pt"));
+        return mes.substring(0, 1).toUpperCase() + mes.substring(1);
     }
 }
