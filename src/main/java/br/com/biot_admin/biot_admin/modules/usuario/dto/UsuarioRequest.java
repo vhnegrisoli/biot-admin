@@ -21,5 +21,6 @@ public class UsuarioRequest {
     private String cpf;
     private String senha;
     private List<Integer> aplicativosIds;
+    private String codigoIdentificacao;
 
 }

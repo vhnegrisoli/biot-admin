@@ -9,7 +9,8 @@ public enum UsuarioException {
     USUARIO_SEM_SESSAO(new ValidacaoException("Não há uma sessão de usuário ativa.")),
     USUARIO_EMAIL_JA_CADASTRADO(new ValidacaoException("Email já cadastrado para um usuário ativo.")),
     USUARIO_CPF_JA_CADASTRADO(new ValidacaoException("CPF já cadastrado para um usuário ativo.")),
-    USUARIO_ACESSO_INVALIDO(new ValidacaoException("Usuário ou senha inválidos, tente novamente."));
+    USUARIO_ACESSO_INVALIDO(new ValidacaoException("Usuário ou senha inválidos, tente novamente.")),
+    CODIGO_IDENTIFICACAO_INCORRETO(new ValidacaoException("O código de validação está incorreto."));
 
     @Getter
     private ValidacaoException exception;

@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 import static br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado.of;
 import static br.com.biot_admin.biot_admin.modules.usuario.exception.UsuarioException.*;
 import static br.com.biot_admin.biot_admin.modules.usuario.model.Usuario.of;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Service
 @Slf4j
 public class UsuarioService {
+
+    private static final String COD_IDENTIFICACAO = "#as191@#cas";
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -32,12 +35,19 @@ public class UsuarioService {
 
     public void save(UsuarioRequest usuarioRequest) {
         var usuario = of(usuarioRequest);
+        validarCodigoDeIdentificacao(usuarioRequest);
         validarDadosUsuario(usuario);
         usuario.setSenha(passwordEncoder.encode(usuarioRequest.getSenha()));
         usuario.setDataCadastro(LocalDateTime.now());
         usuario.setUltimoAcesso(LocalDateTime.now());
         vincularAplicacoes(usuario, usuarioRequest.getAplicativosIds());
         usuarioRepository.save(usuario);
+    }
+
+    private void validarCodigoDeIdentificacao(UsuarioRequest request) {
+        if (isEmpty(request.getId()) && !request.getCodigoIdentificacao().equals(COD_IDENTIFICACAO)) {
+            throw CODIGO_IDENTIFICACAO_INCORRETO.getException();
+        }
     }
 
     private void vincularAplicacoes(Usuario usuario, List<Integer> aplicativos) {
