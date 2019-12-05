@@ -1,5 +1,7 @@
 package br.com.biot_admin.biot_admin.modules.usuario.controller;
 
+import br.com.biot_admin.biot_admin.modules.log.model.Log;
+import br.com.biot_admin.biot_admin.modules.log.service.LogService;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioAutenticado;
 import br.com.biot_admin.biot_admin.modules.usuario.dto.UsuarioRequest;
 import br.com.biot_admin.biot_admin.modules.usuario.model.Usuario;
@@ -18,6 +20,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private LogService logService;
 
     @GetMapping
     public List<Usuario> getUsuarios() {
@@ -44,5 +48,11 @@ public class UsuarioController {
     @GetMapping("/usuario-autenticado")
     public UsuarioAutenticado getUsuarioAutenticado() {
         return usuarioService.getUsuarioAutenticadoAtualizaUltimaData();
+    }
+
+    @GetMapping("/log")
+    public List<Log> findLogPaginado(@RequestParam("page") Integer page,
+                                     @RequestParam("size") Integer size) {
+        return logService.findAllPageable(page, size);
     }
 }

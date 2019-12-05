@@ -5,7 +5,9 @@ import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuarios
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuariosHoraDiaOntemResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.mes.RelatorioSemestreResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatorioUsuariosUltimos15MinutosResponse;
+import br.com.biot_admin.biot_admin.modules.log.model.Log;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface LogRepositoryCustom {
@@ -31,4 +33,6 @@ public interface LogRepositoryCustom {
     List<RelatorioSemestreResponse> getUsuariosSemestreAnterior(String aplicacao);
 
     List<RelatorioSemestreResponse> getUsuariosSemestreAtual(String aplicacao);
+
+    List<Log> findAllPageable(Pageable pageable);
 }

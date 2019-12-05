@@ -1,12 +1,15 @@
 package br.com.biot_admin.biot_admin.modules.log.service;
 
 import br.com.biot_admin.biot_admin.modules.log.dto.LogMqResponse;
+import br.com.biot_admin.biot_admin.modules.log.model.Log;
 import br.com.biot_admin.biot_admin.modules.log.repository.LogRepository;
 import br.com.biot_admin.biot_admin.modules.log.repository.LogRepositoryJdbcImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import static br.com.biot_admin.biot_admin.modules.log.model.Log.of;
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -27,5 +30,9 @@ public class LogService {
         if (!isEmpty(savedLog)) {
             logRepositoryJdbc.atualizaCamposDeDataEHora();
         }
+    }
+
+    public List<Log> findAllPageable(Integer page, Integer size) {
+        return logRepository.findAllPageable(PageRequest.of(page, size));
     }
 }

@@ -5,12 +5,18 @@ import br.com.biot_admin.biot_admin.modules.dashboard.dto.hora.RelatorioUsuarios
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.dia.RelatorioUsuarios7DiasResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.mes.RelatorioSemestreResponse;
 import br.com.biot_admin.biot_admin.modules.dashboard.dto.minuto.RelatorioUsuariosUltimos15MinutosResponse;
+import br.com.biot_admin.biot_admin.modules.log.model.Log;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.Querydsl;
+import org.springframework.data.querydsl.SimpleEntityPathResolver;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +34,6 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
     private static final Integer JUNHO = 6;
     private static final Integer JULHO = 7;
     private static final Integer DEZEMBRO = 12;
-
 
     @Autowired
     private EntityManager entityManager;
@@ -184,5 +189,16 @@ public class LogRepositoryImpl implements LogRepositoryCustom {
             .from(log)
             .where(log.aplicacao.eq(aplicacao).and(log.mes.eq(LocalDateTime.now().getMonthValue())))
             .fetchOne();
+    }
+
+    @Override
+    public List<Log> findAllPageable(Pageable pageable) {
+        var path = SimpleEntityPathResolver.INSTANCE.createPath(Log.class);
+        var querydsl = new Querydsl(entityManager, new PathBuilder<Log>(path.getType(), path.getMetadata()));
+        return querydsl.applyPagination(
+            pageable,
+            new JPAQueryFactory(entityManager)
+                .selectFrom(log))
+            .fetch();
     }
 }
